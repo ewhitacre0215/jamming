@@ -10,7 +10,6 @@ class App extends Component {
     super(props);
     this.state = {
       searchResults: [],
-      term: '',
       playlistName: 'New Jammms',
       playlistTracks: []
     };
@@ -50,13 +49,15 @@ class App extends Component {
   };
 
   removeTrack(track) {
-    if (this.state.playlistTracks.filter(savedTrack => savedTrack.id === track.id)) {
-      this.state.playlistTracks.pop(track);
-    }
-  }
+    let playlistTracks = this.state.playlistTracks;
+    const newTracks = playlistTracks.filter(savedTrack => savedTrack.id !== track.id)
+    this.setState({
+      playlistTracks: newTracks
+    })
+  };
 
-  search() {
-    Spotify.search(this.state.term).then(res => {
+  search(term) {
+    Spotify.search(term).then(res => {
       this.setState({
         searchResults: res
       })
@@ -71,12 +72,14 @@ class App extends Component {
           <SearchBar onSearch={this.search}/>
           <div className="App-playlist">
             <SearchResults searchResults={this.state.searchResults}
-                           onAdd={this.addTrack}/>
-              <Playlist playlistName={this.state.playlistName}
-                        playlistTracks={this.state.playlistTracks}
-                        onRemove={this.removeTrack}
-                        onNameChange={this.updatePlaylistName}
-                        onSave={this.savePlaylist}/>
+                           onAdd={this.addTrack}
+                           onRemove={this.removeTrack}/>
+            <Playlist playlistName={this.state.playlistName}
+                      playlistTracks={this.state.playlistTracks}
+                      onAdd={this.addTrack}
+                      onRemove={this.removeTrack}
+                      onNameChange={this.updatePlaylistName}
+                      onSave={this.savePlaylist}/>
           </div>
         </div>
       </div>
