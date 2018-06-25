@@ -46,7 +46,10 @@ const Spotify = {
 
   savePlaylist(playlistName, trackURIs) {
     let currentUser = Spotify.getAccessToken();
-    let headers = {Authorization: `Bearer ${currentUser}`};
+    let headers = `{
+      Authorization: Bearer ${currentUser},
+      Content-Type: 'application/json'
+    }`;
     let userID = '';
     let playlistID = '';
     if (playlistName === '' || trackURIs === '') {
