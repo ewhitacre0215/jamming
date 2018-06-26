@@ -1,0 +1,23 @@
+.PlaylistInfo {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(256, 256, 256, 0.8);
+}
+
+.PlaylistInfo-information {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 72px;
+}
+
+.PlaylistInfo-information h3 {
+  margin-bottom: .22rem;
+}
+
+.PlaylistInfo-information p {
+  font-size: .83rem;
+  font-weight: 300;
+  color: rgba(256, 256, 256, 0.8);
+}
