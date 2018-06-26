@@ -46,9 +46,9 @@ const Spotify = {
       return;
     } else {
       let currentUser = Spotify.getAccessToken();
-      let headers = {Authorization: `Bearer ${currentUser}`}
+      let headers = {Authorization: `Bearer ${currentUser}`};
       return fetch('https://api.spotify.com/v1/me', {
-        headers: headers,
+        headers: headers
       })
       .then(response => response.json())
       .then(jsonResponse => jsonResponse.id)
@@ -69,6 +69,22 @@ const Spotify = {
           })
         })
       }
+  },
+
+  savedPlaylists() {
+    let currentUser = Spotify.getAccessToken();
+    let headers = {Authorization: `Bearer ${currentUser}`};
+    return fetch('https://api.spotify.com/v1/me/playlists', {
+      headers: headers
+    })
+    .then(response => response.json())
+    .then(jsonResponse => {
+      return jsonResponse.items.map(playlist => ({
+        id: playlist.id,
+        name: playlist.name,
+        owner: playlist.owner
+      }))
+    })
   }
 
 };

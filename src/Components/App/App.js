@@ -3,6 +3,7 @@ import './App.css';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
+import SavedPlaylists from '../SavedPlaylists/SavedPlaylists';
 import Spotify from '../../util/Spotify';
 
 class App extends Component {
@@ -11,7 +12,8 @@ class App extends Component {
     this.state = {
       searchResults: [],
       playlistName: 'New Jammms',
-      playlistTracks: []
+      playlistTracks: [],
+      savedPlaylists: []
     };
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
@@ -50,19 +52,27 @@ class App extends Component {
 
   removeTrack(track) {
     let playlistTracks = this.state.playlistTracks;
-    const newTracks = playlistTracks.filter(savedTrack => savedTrack.id !== track.id)
+    const newTracks = playlistTracks.filter(savedTrack => savedTrack.id !== track.id);
     this.setState({
       playlistTracks: newTracks
-    })
+    });
   };
 
   search(term) {
     Spotify.search(term).then(res => {
       this.setState({
         searchResults: res
-      })
+      });
     });
-  }
+  };
+
+  getPlaylists() {
+    Spotify.getPlaylists().then(res => {
+      this.setState({
+        savedPlaylists: res
+      });
+    });
+  };
 
   render() {
     return (
@@ -78,6 +88,9 @@ class App extends Component {
                       onRemove={this.removeTrack}
                       onNameChange={this.updatePlaylistName}
                       onSave={this.savePlaylist}/>
+          </div>
+          <div className="App-SavedPlaylist">
+            <SavedPlaylists playlists={this.state.savedPlaylists} />
           </div>
         </div>
       </div>
