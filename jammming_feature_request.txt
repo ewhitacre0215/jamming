@@ -1,0 +1,11 @@
+OBJECTIVE
+The goal of this feature was to display a list of a Jammming user’s existing Spotify playlists.
+
+BACKGROUND
+This feature is important to implement so that a user knows what playlists they already have before they embark on creating a new one.
+
+TECHNICAL DESIGN
+This feature adds two components to the application. One component is the new container for Saved Playlists. The next component includes the infomation about existing playlists obtained via the Spotify API. Additionally, one function must be added to the Spotify API to get a list of playlists for a current user using the following endpoint: https://developer.spotify.com/documentation/web-api/reference/playlists/get-a-list-of-current-users-playlists/ .
+
+CAVEATS
+One caveat to this component is that it does not refresh if a user saves a new playlist which would be the ideal functionality. Another useful addition to this component might be an accordion style dropdown that will render a sample of tracks from a playlist.
